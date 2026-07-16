@@ -1,4 +1,11 @@
-.vs/
+
 bin/
 obj/
 *.user
+
+# Debug folders
+Debug/
+Release/
+x64/
+.vs/
+.vscode/
