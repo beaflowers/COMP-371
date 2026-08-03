@@ -1,23 +1,14 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
 #include <iostream>
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-//bea hoekstra / student id: 40285118 / Section CX
-//omar ghazaly / student id: 40280795 / Section CY
-
 //global variables for transformation states - to be modified by keyboard input
-glm::vec3 translation = glm::vec3(0.0f);
+glm::vec3 position = glm::vec3(0.0f);
 float rotationAngle = 0.0f;
 glm::vec3 scale = glm::vec3(1.0f);
-//scale and position variables
-const float d = 0.01f;
-const float s = 1.01f;
 
 //input tracking function
 void processInput(GLFWwindow* window) {
@@ -27,20 +18,12 @@ void processInput(GLFWwindow* window) {
 
 //better input tracking function for interactivity 
 void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
-
-	if (action != GLFW_PRESS) return; { //fires once per key press
-
+	if (action != GLFW_PRESS) { //fires once per key press
 		switch (key) {
 		case GLFW_KEY_Q: rotationAngle += 30.0f;
 			break;
 		case GLFW_KEY_E: rotationAngle -= 30.0f;
 			break;
-		case GLFW_KEY_W: translation.y += d; break;
-		case GLFW_KEY_S: translation.y -= d; break;
-		case GLFW_KEY_A: translation.x -= d; break;
-		case GLFW_KEY_D: translation.x += d; break;
-		case GLFW_KEY_R: scale.z *= s; break;
-		case GLFW_KEY_F: scale.z /= s; break;
 		default:
 			break;
 		}
@@ -48,54 +31,10 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 }
 
 
-const char* vertexShaderSource = R"glsl(
-	#version 330 core
-	layout (location = 0) in vec3 aPos;
-	uniform mat4 transform;
-	void main() {
-		gl_Position = transform * vec4(aPos, 1.0);
-	}
-)glsl";
-
-const char* fragmentShaderSource = R"glsl(
-	#version 330 core
-	out vec4 FragColor;
-	void main() {
-		FragColor = vec4(1.0, 1.0, 1.0, 1.0);
-	}
-)glsl";
-
-void processInput(GLFWwindow* window, glm::vec3& translation, float& rotation, float& zScale) {
-	const float d = 0.01f;
-	const float s = 1.01f;
-
-	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) glfwSetWindowShouldClose(window, true);
-	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) translation.y += d;
-	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) translation.y -= d;
-	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) translation.x -= d;
-	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) translation.x += d;
-	if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS) rotation += 30.0f;
-	if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS) rotation -= 30.0f;
-	if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) zScale *= s;
-	if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS) zScale /= s;
-}
-
 int main() {
 	//initialize GLFW
 	glfwInit();
-	if (!glfwInit()) {
-		std::cout << "Failed to init GLFW\n";
-		return -1;
-	}
-
 	GLFWwindow* window = glfwCreateWindow(800, 600, "OpenGL Window", nullptr, nullptr);
-
-	if (!window) {
-		std::cout << "Failed to create window\n";
-		glfwTerminate();
-		return -1;
-	}
-
 	glfwMakeContextCurrent(window);
 
 	//set key callback for input
@@ -103,12 +42,6 @@ int main() {
 
 	//initialize GLEW
 	glewInit();
-
-	glewExperimental = GL_TRUE;
-	if (glewInit() != GLEW_OK) {
-		std::cout << "Failed to init GLEW\n";
-		return -1;
-	}
 
 	//allow for 3D
 	glEnable(GL_DEPTH_TEST);
@@ -220,12 +153,10 @@ int main() {
 
 		glUseProgram(shaderProgram); // needs to come before buffers 
 
-		// transformation
+		// transformation - currently just rotation 
 		glm::mat4 transform = glm::mat4(1.0f);
-		transform = glm::translate(transform, translation); //builds the 4x4 matrix for translation
-		transform = glm::rotate(transform, glm::radians(rotationAngle), glm::vec3(0.0f, 0.0f, 1.0f)); //determines what axis rotating around
-		transform = glm::scale(transform, scale); //scaling
-
+		transform = glm::translate(transform, position); //builds the 4x4 matrix for translation
+		transform = glm::rotate(transform, glm::radians(rotationAngle), glm::vec3(0.0f, 1.0f, 0.0f)); //determines what axis rotating around
 
 		//combine model, view, projection
 		glm::mat4 mvp = projection * view * transform;
