@@ -9,6 +9,7 @@
 glm::vec3 translation = glm::vec3(0.0f);
 float rotationAngle = 0.0f;
 glm::vec3 scale = glm::vec3(1.0f);
+//scale and position variables
 const float d = 0.01f;
 const float s = 1.01f;
 
@@ -44,7 +45,19 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 int main() {
 	//initialize GLFW
 	glfwInit();
+	if (!glfwInit()) {
+		std::cout << "Failed to init GLFW\n";
+		return -1;
+	}
+
 	GLFWwindow* window = glfwCreateWindow(800, 600, "OpenGL Window", nullptr, nullptr);
+
+	if (!window) {
+		std::cout << "Failed to create window\n";
+		glfwTerminate();
+		return -1;
+	}
+
 	glfwMakeContextCurrent(window);
 
 	//set key callback for input
@@ -52,6 +65,12 @@ int main() {
 
 	//initialize GLEW
 	glewInit();
+
+	glewExperimental = GL_TRUE;
+	if (glewInit() != GLEW_OK) {
+		std::cout << "Failed to init GLEW\n";
+		return -1;
+	}
 
 	//allow for 3D
 	glEnable(GL_DEPTH_TEST);
