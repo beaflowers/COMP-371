@@ -6,9 +6,11 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 //global variables for transformation states - to be modified by keyboard input
-glm::vec3 position = glm::vec3(0.0f);
+glm::vec3 translation = glm::vec3(0.0f);
 float rotationAngle = 0.0f;
 glm::vec3 scale = glm::vec3(1.0f);
+const float d = 0.01f;
+const float s = 1.01f;
 
 //input tracking function
 void processInput(GLFWwindow* window) {
@@ -18,12 +20,20 @@ void processInput(GLFWwindow* window) {
 
 //better input tracking function for interactivity 
 void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
-	if (action != GLFW_PRESS) { //fires once per key press
+
+	if (action != GLFW_PRESS) return; { //fires once per key press
+
 		switch (key) {
 		case GLFW_KEY_Q: rotationAngle += 30.0f;
 			break;
 		case GLFW_KEY_E: rotationAngle -= 30.0f;
 			break;
+		case GLFW_KEY_W: translation.y += d; break;
+		case GLFW_KEY_S: translation.y -= d; break;
+		case GLFW_KEY_A: translation.x -= d; break;
+		case GLFW_KEY_D: translation.x += d; break;
+		case GLFW_KEY_R: scale.z *= s; break;
+		case GLFW_KEY_F: scale.z /= s; break;
 		default:
 			break;
 		}
@@ -153,10 +163,12 @@ int main() {
 
 		glUseProgram(shaderProgram); // needs to come before buffers 
 
-		// transformation - currently just rotation 
+		// transformation
 		glm::mat4 transform = glm::mat4(1.0f);
-		transform = glm::translate(transform, position); //builds the 4x4 matrix for translation
-		transform = glm::rotate(transform, glm::radians(rotationAngle), glm::vec3(0.0f, 1.0f, 0.0f)); //determines what axis rotating around
+		transform = glm::translate(transform, translation); //builds the 4x4 matrix for translation
+		transform = glm::rotate(transform, glm::radians(rotationAngle), glm::vec3(0.0f, 0.0f, 1.0f)); //determines what axis rotating around
+		transform = glm::scale(transform, scale); //scaling
+
 
 		//combine model, view, projection
 		glm::mat4 mvp = projection * view * transform;

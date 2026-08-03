@@ -71,8 +71,20 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\glm-1.0.3\glm\glm;C:\glew-2.3.1\include;C:\glfw-3.4.bin.WIN64\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\glfw-3.4.bin.WIN64\lib-vc2022;C:\glew-2.3.1\lib\Release\x64;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\glfw-3.4.bin.WIN64\lib-vc2022;C:\glew-2.3.1\lib\Release\x64;C:\glfw-3.4.bin.WIN64\lib-vc2022;C:\glew-2.3.1\lib\Release\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\glm-1.0.3\glm;C:\glfw-3.4.bin.WIN64\include;C:\glew-2.3.1\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>C:\glm-1.0.3\glm;C:\glfw-3.4.bin.WIN64\include;C:\glew-2.3.1\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\glfw-3.4.bin.WIN64\lib-vc2022;C:\glew-2.3.1\lib\Release\x64;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>C:\glm-1.0.3\glm;C:\glfw-3.4.bin.WIN64\include;C:\glew-2.3.1\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\glfw-3.4.bin.WIN64\lib-vc2022;C:\glew-2.3.1\lib\Release\x64;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>C:\glm-1.0.3\glm;C:\glfw-3.4.bin.WIN64\include;C:\glew-2.3.1\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\glfw-3.4.bin.WIN64\lib-vc2022;C:\glew-2.3.1\lib\Release\x64;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -85,6 +97,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Manifest>
       <EnableSegmentHeap>true</EnableSegmentHeap>
@@ -103,6 +116,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Manifest>
       <EnableSegmentHeap>true</EnableSegmentHeap>
@@ -119,7 +133,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glew32.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;glew32.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Manifest>
       <EnableSegmentHeap>true</EnableSegmentHeap>
@@ -138,6 +152,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Manifest>
       <EnableSegmentHeap>true</EnableSegmentHeap>
