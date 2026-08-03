@@ -1,5 +1,8 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include <iostream>
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -44,6 +47,38 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 	}
 }
 
+
+const char* vertexShaderSource = R"glsl(
+	#version 330 core
+	layout (location = 0) in vec3 aPos;
+	uniform mat4 transform;
+	void main() {
+		gl_Position = transform * vec4(aPos, 1.0);
+	}
+)glsl";
+
+const char* fragmentShaderSource = R"glsl(
+	#version 330 core
+	out vec4 FragColor;
+	void main() {
+		FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+	}
+)glsl";
+
+void processInput(GLFWwindow* window, glm::vec3& translation, float& rotation, float& zScale) {
+	const float d = 0.01f;
+	const float s = 1.01f;
+
+	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) glfwSetWindowShouldClose(window, true);
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) translation.y += d;
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) translation.y -= d;
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) translation.x -= d;
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) translation.x += d;
+	if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS) rotation += 30.0f;
+	if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS) rotation -= 30.0f;
+	if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) zScale *= s;
+	if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS) zScale /= s;
+}
 
 int main() {
 	//initialize GLFW
