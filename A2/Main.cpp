@@ -5,6 +5,9 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+//bea hoekstra / student id: 40285118 / Section CX
+//omar ghazaly / student id: 40280795 / Section CY
+
 //global variables for transformation states - to be modified by keyboard input
 glm::vec3 translation = glm::vec3(0.0f);
 float rotationAngle = 0.0f;
