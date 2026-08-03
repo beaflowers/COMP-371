@@ -1,0 +1,10 @@
+Who Has Done What Report
+
+bea hoekstra / student id: 40285118 / Section CX
+omar ghazaly / student id: 40280795 / Section CY
+
+Bea - Step 1, Step 2, beginning part of step 3
+Pipeline setup with VAO/VBO/EBO, creating pyramid, controlling render with view and projection
+
+Omar - Step 1, parts of Step 2, Step 3, Step 4
+Debugging/aiding with pipeline setup, all interactivity components 
