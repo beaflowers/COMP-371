@@ -1,8 +1,8 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
+#include <glm.hpp>
+#include <gtc/matrix_transform.hpp>
+#include <gtc/type_ptr.hpp>
 #include <iostream>
 
 const char* vertexShaderSource = R"glsl(
@@ -151,7 +151,7 @@ int main() {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 
 	glEnableVertexAttribArray(0);
 
@@ -185,10 +185,10 @@ int main() {
 		glm::mat4 transform = glm::mat4(1.0f);
 
 		transform = glm::translate(transform, translation);
-		transform = glm::rotate(transform, glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f));
-		transform = glm::scale(transform, glm::vec3(1.0f, 1.0f, zScale));
+		transform = glm::rotate( transform, glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f));
+		transform = glm::scale( transform, glm::vec3(1.0f, 1.0f, zScale));
 
-		glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transform));
+		glUniformMatrix4fv( transformLoc, 1, GL_FALSE, glm::value_ptr(transform));
 
 		glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, nullptr);
 
