@@ -17,7 +17,7 @@ float rotationAngle = 0.0f;
 glm::vec3 scale = glm::vec3(1.0f);
 //scale and position variables
 const float d = 0.01f;
-const float s = 1.01f;
+const float s = 1.51f;
 
 //input tracking function
 void processInput(GLFWwindow* window) {
@@ -65,20 +65,20 @@ const char* fragmentShaderSource = R"glsl(
 	}
 )glsl";
 
-void processInput(GLFWwindow* window, glm::vec3& translation, float& rotation, float& zScale) {
-	const float d = 0.01f;
-	const float s = 1.01f;
-
-	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) glfwSetWindowShouldClose(window, true);
-	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) translation.y += d;
-	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) translation.y -= d;
-	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) translation.x -= d;
-	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) translation.x += d;
-	if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS) rotation += 30.0f;
-	if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS) rotation -= 30.0f;
-	if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) zScale *= s;
-	if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS) zScale /= s;
-}
+//void processInput(GLFWwindow* window, glm::vec3& translation, float& rotation, float& zScale) {
+//	const float d = 0.01f;
+//	const float s = 1.01f;
+//
+//	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) glfwSetWindowShouldClose(window, true);
+//	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) translation.y += d;
+//	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) translation.y -= d;
+//	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) translation.x -= d;
+//	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) translation.x += d;
+//	if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS) rotation += 30.0f;
+//	if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS) rotation -= 30.0f;
+//	if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) zScale *= s;
+//	if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS) zScale /= s;
+//}
 
 int main() {
 	//initialize GLFW
